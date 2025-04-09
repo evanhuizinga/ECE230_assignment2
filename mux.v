@@ -1,11 +1,20 @@
-module mux2 (
-    input a, b, sel,
-    output out
+module mux_dff (
+    input D0,
+    input D1,
+    input Sel,
+    input clk,
+    output reg Q
 );
-    wire nsel, a1, b1;
+    reg D;
 
-    not (nsel, sel);
-    and (a1, a, nsel);
-    and (b1, b, sel);
-    or  (out, a1, b1);
+    always @(*) begin
+        if (Sel == 1'b1)
+            D = D1;
+        else
+            D = D0;
+    end
+
+    always @(posedge clk) begin
+        Q <= D;
+    end
 endmodule
